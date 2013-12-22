@@ -1,0 +1,9 @@
+{
+  "name": "service-status-server",
+  "version" : "0.1.0",
+  "author"  : "David Young",
+  "description" : "a server to monitor services, communicates information to another server",
+  "dependencies" : {
+    "socket.io-client" : "0.9.x"
+  }
+}
