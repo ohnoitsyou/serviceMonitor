@@ -31,7 +31,6 @@ app.get('/', function(req, res) {
     });
     services.push(service);
   }
-  console.log(util.inspect(services)); 
   res.render('index', {'title': 'testing', 'service' : services}); 
 });
 
