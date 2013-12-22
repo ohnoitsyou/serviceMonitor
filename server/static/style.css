@@ -1,0 +1,15 @@
+.serviceContainer {
+  width: 25%;
+  height: 200px;
+  border: 1px solid black;
+  float: left;
+}
+.serviceContainer .name {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+.serviceContainer .status {
+  display: inline-block; 
+  width: 100%;
+}

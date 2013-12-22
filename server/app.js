@@ -16,6 +16,7 @@ app.engine('hbs', hbs.express3({
 }));
 app.set('view engine', 'hbs');
 app.set('views', __dirname + '/views');
+app.use(express.static(__dirname + '/static'));
 
 app.get('/', function(req, res) {
   var services = [];
