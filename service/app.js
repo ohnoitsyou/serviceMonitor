@@ -1,6 +1,6 @@
 // read the configuration
 var fs = require('fs')
-  , config = JSON.parse(fs.readFileSync('./config.json'));
+  , config = JSON.parse(fs.readFileSync(__dirname + '/config.json'));
 
 var io  = require('socket.io-client')
   , socket = io.connect('127.0.0.1:3000')

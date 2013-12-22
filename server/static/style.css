@@ -1,15 +1,18 @@
 .serviceContainer {
   width: 25%;
-  height: 200px;
+  height: 150px;
   border: 1px solid black;
   float: left;
+  margin: 5px;
 }
 .serviceContainer .name {
   display: inline-block;
   width: 100%;
   text-align: center;
+  margin: 5px;
 }
 .serviceContainer .status {
   display: inline-block; 
   width: 100%;
+  margin: 5px;
 }
