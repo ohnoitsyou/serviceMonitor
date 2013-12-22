@@ -1,5 +1,7 @@
 Service Monitor
 ===
+A nodejs and socket.io based service monitor
+
 
 ## TODO:
 + Have each service determine an appropriate port on its own.
