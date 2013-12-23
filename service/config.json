@@ -2,11 +2,16 @@
   "nginx" : {
     "webserverPort" : 3001,
     "serviceName" : "nginx",
-    "statusCommand" : "service nginx status | grep Active",
+    "statusCommand" : "service nginx status | grep Active"
   },
   "dovecot" : {
     "webserverPort"  : 3002,
     "serviceName"    : "dovecot",
-    "statusCommand"  : "service dovecot status | grep Active",
+    "statusCommand"  : "service dovecot status | grep Active"
+  },
+  "postfix" : {
+    "webserverPort"  : 3003,
+    "serviceName"    : "postfix",
+    "statusCommand"  : "service postfix status | grep Active"
   }
 }
