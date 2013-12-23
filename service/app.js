@@ -17,7 +17,6 @@ var io  = require('socket.io-client')
   , hostname = myHostname()
   , srvstatus = serviceStatus(); 
 
-
 http.createServer(function (req, res) {
   res.writeHead(200, {'Content-Type':'text/plain'});
   res.end("Listening");

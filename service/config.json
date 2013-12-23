@@ -13,5 +13,10 @@
     "webserverPort"  : 3003,
     "serviceName"    : "postfix",
     "statusCommand"  : "service postfix status | grep Active"
+  },
+  "apache" : {
+    "webserverPort"  : 3004,
+    "serviceName"    : "httpd",
+    "statusComand"   : "service httpd status | grep Active"
   }
 }
