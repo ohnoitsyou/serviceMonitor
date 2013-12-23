@@ -5,10 +5,10 @@ A nodejs and socket.io based service monitor
 Run npm install in both the server and service directory to install all the node modules.
 
 Run the server:
-  node server/app.js
+>  node server/app.js
   
 Run the service (after creating a profile):
-  node service/app.js <service name>
+>  node service/app.js &lt;service name&gt;
   
 Read service/readme.md to see the config.json options
 
