@@ -1,13 +1,22 @@
+var args = process.argv.splice(2);
 // read the configuration
 var fs = require('fs')
   , config = JSON.parse(fs.readFileSync(__dirname + '/config.json'));
 
+if(args[0] && config[args[0]]) {
+  console.log('Loading configuration for: ' + args[0]);
+  config = config[args[0]];
+} else {
+  console.log('No configuration found. Create one in config.json');
+  return;
+}
 var io  = require('socket.io-client')
   , socket = io.connect('127.0.0.1:3000')
   , http = require('http')
   , util = require('util')
   , hostname = myHostname()
   , srvstatus = serviceStatus(); 
+
 
 http.createServer(function (req, res) {
   res.writeHead(200, {'Content-Type':'text/plain'});

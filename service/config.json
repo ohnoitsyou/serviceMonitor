@@ -1,6 +1,12 @@
 {
-  "webserverPort" : 3001,
-  "serviceName" : "nginx",
-  "statusCommand" : "service nginx status | grep Active",
-  "restartCommand" : "service nginx restart"
+  "nginx" : {
+    "webserverPort" : 3001,
+    "serviceName" : "nginx",
+    "statusCommand" : "service nginx status | grep Active",
+  },
+  "dovecot" : {
+    "webserverPort"  : 3002,
+    "serviceName"    : "dovecot",
+    "statusCommand"  : "service dovecot status | grep Active",
+  }
 }
