@@ -1,4 +1,5 @@
 {
+  "server" : "127.0.0.1:3000",
   "nginx" : {
     "webserverPort"  : 3001,
     "serviceName"    : "nginx",

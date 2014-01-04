@@ -12,7 +12,7 @@ if(args[0] && config[args[0]]) {
 }
 
 var io  = require('socket.io-client')
-  , socket = io.connect('127.0.0.1:3000')
+  , socket = io.connect(config.server)
   , http = require('http')
   , hostname
   , srvstatus
