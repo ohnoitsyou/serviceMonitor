@@ -10,12 +10,28 @@ if(args[0] && config[args[0]]) {
   console.log('No configuration found. Create one in config.json');
   return;
 }
+
 var io  = require('socket.io-client')
   , socket = io.connect('127.0.0.1:3000')
   , http = require('http')
-  , util = require('util')
-  , hostname = myHostname()
-  , srvstatus = serviceStatus(); 
+  , hostname
+  , srvstatus
+  ;
+
+// Inital variable setup
+// The calls to these functions don't actually return anything so setting them up top
+//   is a bit pointless...
+myHostname();
+serviceStatus();
+
+// doing setInterval(serviceStatus(),10000); doesn't work. some timers error.
+// This will do for now
+setInterval(function() {
+  var exec = require('child_process').exec;
+  exec(config.statusCommand, function(err, stdout, stderr) {
+    srvstatus = stdout.toString();
+  });
+}, config.updateInterval);
 
 http.createServer(function (req, res) {
   res.writeHead(200, {'Content-Type':'text/plain'});
@@ -35,16 +51,25 @@ socket.on('connect', function() {
   });
 });
 
+// get the hostname of the box that's running this. Reported back to the server
+//   so we can track the box and the service
 function myHostname() { 
   var exec = require('child_process').exec;
   exec("hostname", function(err, stdout, stderr) {
     hostname = stdout.toString()
   });
 }
-
+// Call the user defined string to get the status of the service.
 function serviceStatus() {
   var exec = require('child_process').exec;
   exec(config.statusCommand, function(err, stdout, stderr) {
     srvstatus = stdout.toString();
   });
 }
+
+/*
+ * I'm thinking about creating a 'this' variable to store everything in.
+ * I'll get around to it eventually.
+ * Ultimately it might lead to the de-dup of that function I had to do to get
+ *   intervals to work properly
+ */
