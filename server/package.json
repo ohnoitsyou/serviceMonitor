@@ -1,6 +1,6 @@
 {
   "name" : "service-status-dashboard",
-  "version" : "0.1.0",
+  "version" : "0.2.0",
   "author" : "David Young",
   "description" : "Dashboard for displaying service status",
   "dependencies" : {
