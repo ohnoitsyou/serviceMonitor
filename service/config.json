@@ -1,22 +1,26 @@
 {
   "nginx" : {
-    "webserverPort" : 3001,
-    "serviceName" : "nginx",
-    "statusCommand" : "service nginx status | grep Active"
+    "webserverPort"  : 3001,
+    "serviceName"    : "nginx",
+    "statusCommand"  : "service nginx status | grep Active",
+    "updateInterval" : 10000
   },
   "dovecot" : {
     "webserverPort"  : 3002,
     "serviceName"    : "dovecot",
-    "statusCommand"  : "service dovecot status | grep Active"
+    "statusCommand"  : "service dovecot status | grep Active",
+    "updateInterval" : 10000
   },
   "postfix" : {
     "webserverPort"  : 3003,
     "serviceName"    : "postfix",
     "statusCommand"  : "service postfix status | grep Active"
+    "updateInterval" : 10000
   },
   "apache" : {
     "webserverPort"  : 3004,
     "serviceName"    : "httpd",
-    "statusCommand"   : "service httpd status | grep Active"
+    "statusCommand"  : "service httpd status | grep Active"
+    "updateInterval" : 10000
   }
 }
