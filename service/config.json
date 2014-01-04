@@ -17,6 +17,6 @@
   "apache" : {
     "webserverPort"  : 3004,
     "serviceName"    : "httpd",
-    "statusComand"   : "service httpd status | grep Active"
+    "statusCommand"   : "service httpd status | grep Active"
   }
 }
