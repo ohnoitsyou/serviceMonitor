@@ -1,18 +1,25 @@
 var args = process.argv.splice(2);
 // read the configuration
 var fs = require('fs')
-  , config = JSON.parse(fs.readFileSync(__dirname + '/config.json'));
+  , config = JSON.parse(fs.readFileSync(__dirname + '/config.json'))
+  , ioserver = config.server
+  ;
+
+console.log("connecting to: " + ioserver);
 
 if(args[0] && config[args[0]]) {
   console.log('Loading configuration for: ' + args[0]);
   config = config[args[0]];
-} else {
+} else if(args[0] && !config[args[0]]) {
   console.log('No configuration found. Create one in config.json');
+  return;
+} else {
+  console.log('No configuration specified.');
   return;
 }
 
 var io  = require('socket.io-client')
-  , socket = io.connect(config.server)
+  , socket = io.connect(ioserver)
   , http = require('http')
   , hostname
   , srvstatus
