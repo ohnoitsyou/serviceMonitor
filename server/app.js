@@ -31,7 +31,7 @@ app.get('/', function(req, res) {
     });
     services.push(service);
   }
-  res.render('index', {'title': 'Service Status', 'service' : services}); 
+  res.render('flexindex', {'title': 'Service Status', 'service' : services}); 
 });
 
 io.sockets.on('connection', function(socket) {

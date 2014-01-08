@@ -1,8 +1,8 @@
 .serviceContainer {
-  width: 25%;
+//  width: 25%;
   height: 150px;
   border: 1px solid black;
-  float: left;
+//  float: left;
   margin: 5px;
 }
 .serviceContainer .name {
@@ -15,4 +15,28 @@
   display: inline-block; 
   width: 100%;
   margin: 5px;
+}
+
+.flexContainer {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  
+  -webkit-flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  list-style: none;
+}
+
+.flexContainer div h3 {
+  text-align: center;
+}
+
+.flexitem {
+  width: 20%;
+  margin: 5px;
+  border: 1px solid black;
+  font-weight: bold;
 }
