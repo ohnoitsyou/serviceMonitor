@@ -30,6 +30,9 @@ app.get('/', function(req, res) {
       service.srvstatus = srvstatus;
     });
     clientRef.get('ip', function(err, ip) {
+      if(ip == "0.0.0.0") {
+        getIpAddr(clientRef);
+      }
       service.ip = ip;
     });
     clientRef.get('toggle', function(err, toggle) {
@@ -50,9 +53,16 @@ app.post('/autoToggle/:id', function(req, res) {
 
 io.sockets.on('connection', function(socket) {
   console.log('New client');
-  getHostname(socket)
+  socket.set('hostname', "client connecting");
+  socket.set('ip', "0.0.0.0");
+  getHostname(socket);
   getIpAddr(socket);
-  setTimeout(updateStatus(socket), 1000)
+  setTimeout(updateStatus, 1000, socket);
+  socket.get('ip', function(err, ip) {
+    if(ip == "0.0.0.0") {
+      setTimeout(getIpAddr,500,socket);
+    }
+  });
 });
 
 function getHostname(socket) {
@@ -62,11 +72,8 @@ function getHostname(socket) {
 }
 function getIpAddr(socket) {
   socket.emit('ip', function(ip) {
-    while(ip == "0.0.0.0") {
-      setTimeout(function() {}, 2000);
-    };
+    console.log(ip);
     socket.set('ip', ip);
-    console.log('got ip');
   });
 }
 function updateStatus(socket) {
@@ -75,6 +82,11 @@ function updateStatus(socket) {
     //console.log('status: ' + srvstatus);
   });
 }
+
+function getToggleStatus(socket) {
+  socket.emit('togglestatus', function(togglestatus) {});
+}
+
 setInterval(function() {
   for(client in io.sockets.sockets) {
     updateStatus(io.sockets.socket(client));
