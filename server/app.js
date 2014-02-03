@@ -29,19 +29,46 @@ app.get('/', function(req, res) {
     clientRef.get('status', function(err, srvstatus) {
       service.srvstatus = srvstatus;
     });
+    clientRef.get('ip', function(err, ip) {
+      service.ip = ip;
+    });
+    clientRef.get('toggle', function(err, toggle) {
+      service.toggle = toggle;
+    });
+    service.id = clientRef.id;
+    
     services.push(service);
   }
   res.render('flexindex', {'title': 'Service Status', 'service' : services}); 
 });
 
+app.post('/autoToggle/:id', function(req, res) {
+  console.log('autoToggle');
+  req.send('success');
+});
+
+
 io.sockets.on('connection', function(socket) {
   console.log('New client');
-  socket.emit('name', function(name) {
-    socket.set('name',name);
-    //console.log('name: ' + name);
-  }); 
+  getHostname(socket)
+  getIpAddr(socket);
   setTimeout(updateStatus(socket), 1000)
 });
+
+function getHostname(socket) {
+  socket.emit('name', function(name) {
+    socket.set('name', name);
+  });
+}
+function getIpAddr(socket) {
+  socket.emit('ip', function(ip) {
+    while(ip == "0.0.0.0") {
+      setTimeout(function() {}, 2000);
+    };
+    socket.set('ip', ip);
+    console.log('got ip');
+  });
+}
 function updateStatus(socket) {
   socket.emit('status', function(srvstatus) {
     socket.set('status', srvstatus);

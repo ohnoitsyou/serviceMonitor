@@ -21,8 +21,9 @@ if(args[0] && config[args[0]]) {
 var io  = require('socket.io-client')
   , socket = io.connect(ioserver)
   , http = require('http')
-  , hostname
-  , srvstatus
+  , hostname = ""
+  , hostIP = "0.0.0.0" 
+  , srvstatus = ""
   ;
 
 // Inital variable setup
@@ -53,6 +54,9 @@ socket.on('connect', function() {
   socket.on('name', function(reply) {
     reply(config.serviceName + " on " + hostname);
   });
+  socket.on('ip', function(reply) {
+    reply(hostIP);
+  });
   socket.on('status', function(reply) {
     reply(config.serviceName + ' is: ' + srvstatus);
   });
@@ -63,9 +67,14 @@ socket.on('connect', function() {
 function myHostname() { 
   var exec = require('child_process').exec;
   exec("hostname", function(err, stdout, stderr) {
-    hostname = stdout.toString()
+    hostname = stdout.toString();
+  });
+  exec("curl http://ipecho.net/plain", function(err, stdout, stderr) {
+    hostIP = stdout.toString();
+    console.log("ip: " + hostIP);
   });
 }
+
 // Call the user defined string to get the status of the service.
 function serviceStatus() {
   var exec = require('child_process').exec;

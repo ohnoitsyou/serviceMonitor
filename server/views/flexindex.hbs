@@ -1,11 +1,21 @@
 {{!< default}}
-
+<script>
+  function toggleAutoPoll(id,currentState) {
+    $.ajax({
+      type: "POST",
+      url: "/autoToggle/" + id,
+      data: currentState
+    });
+  }
+</script>
 <ul class="flexContainer">
 {{#each service}}
   <li class="flexItem">
     <div>
-      <h3 class="name">{{name}}</h3>
+      <h3 class="name">{{name}} ({{ip}})</h3>
       <span class="status">{{srvstatus}}</span>
+      <div><a onClick="toggleAutoPoll({{id}},{{state}})" href="#">Toggle autopoll</a></div>
+      </div>
     </div>
   </li>
 {{/each}}
