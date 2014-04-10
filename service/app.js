@@ -60,6 +60,13 @@ socket.on('connect', function() {
   socket.on('status', function(reply) {
     reply(config.serviceName + ' is: ' + srvstatus);
   });
+  socket.on('autoPollStatus', function(reply) {
+    reply(config.autoPoll);
+  });
+  socket.on('toggleAutoPoll', function(reply) {
+    config.autoPoll = config.autoPoll ? false : true;
+    reply(config.autoPoll);
+  });
 });
 
 // get the hostname of the box that's running this. Reported back to the server

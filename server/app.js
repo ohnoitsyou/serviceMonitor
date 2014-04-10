@@ -35,8 +35,8 @@ app.get('/', function(req, res) {
       }
       service.ip = ip;
     });
-    clientRef.get('toggle', function(err, toggle) {
-      service.toggle = toggle;
+    clientRef.get('polling', function(err, polling) {
+      service.polling = polling;
     });
     service.id = clientRef.id;
     
@@ -47,7 +47,7 @@ app.get('/', function(req, res) {
 
 app.post('/autoToggle/:id', function(req, res) {
   console.log('autoToggle');
-  req.send('success');
+  res.send('success');
 });
 
 
@@ -56,13 +56,9 @@ io.sockets.on('connection', function(socket) {
   socket.set('hostname', "client connecting");
   socket.set('ip', "0.0.0.0");
   getHostname(socket);
-  getIpAddr(socket);
   setTimeout(updateStatus, 1000, socket);
-  socket.get('ip', function(err, ip) {
-    if(ip == "0.0.0.0") {
-      setTimeout(getIpAddr,500,socket);
-    }
-  });
+  setTimeout(getIpAddr, 500, socket);
+  setTimeout(getToggleStatus, 500, socket);
 });
 
 function getHostname(socket) {
@@ -79,12 +75,13 @@ function getIpAddr(socket) {
 function updateStatus(socket) {
   socket.emit('status', function(srvstatus) {
     socket.set('status', srvstatus);
-    //console.log('status: ' + srvstatus);
   });
 }
 
 function getToggleStatus(socket) {
-  socket.emit('togglestatus', function(togglestatus) {});
+  socket.emit('autoPollStatus', function(togglestatus) {
+    socket.set('polling', togglestatus);
+  });
 }
 
 setInterval(function() {
