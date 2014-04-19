@@ -23,16 +23,17 @@ exports.tempStat = function(convert) {
   if(!noFile) {
     try {
       var tempC = fs.readFileSync("/sys/class/thermal/thermal_zone0/temp").toString();
+      tempC = splitValue(tempC,2,".");
+      return convert ?
+        tempC * 1.8 + 32 :
+        tempC;
     } catch(e) {
       // It's ok that we can't read that file, it exists on my raspi, but not on my VPS 
       //   also, different systems might have a different location for that info
       // More testing is required to see what the case is on more systems.
       noFile = true;
+      return false;
     }
-    tempC = splitValue(tempC,2,".");
-    return convert ?
-      tempC * 1.8 + 32 :
-      tempC;
   } else {
     return false;
   }

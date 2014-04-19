@@ -50,5 +50,9 @@ if(config.monitorMemory) {
 }
 if(config.monitorTemp) {
   var temp = lib.tempStat(config.convertTemp);
-  console.log(temp);
+  if(temp !== false) {
+    console.log(temp);
+  } else {
+    console.log("cant open temperature file");
+  }
 }
