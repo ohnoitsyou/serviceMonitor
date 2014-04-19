@@ -17,6 +17,15 @@ exports.memoryStat = function() {
   return {'total':total, 'free':free, 'used': used.toString()};
 }
 
-exports.tempStat = function() {
+exports.tempStat = function(convert) {
+  var convert = convert || false;
+  var tempC = fs.readFileSync("/sys/class/thermal/thermal_zone0/temp").toString();
+  tempC = splitValue(tempC,2,".");
+  return convert ?
+    tempC * 1.8 + 32 :
+    tempC;
+}
 
+function splitValue(value, index, seperator) {
+  return value.substring(0, index) + seperator + value.substring(index);
 }

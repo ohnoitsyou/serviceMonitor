@@ -49,5 +49,6 @@ if(config.monitorMemory) {
   console.log('used: ' + meminfo['used']);
 }
 if(config.monitorTemp) {
-  lib.tempStat();
+  var temp = lib.tempStat(config.convertTemp);
+  console.log(temp);
 }

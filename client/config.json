@@ -3,11 +3,11 @@
   "hostname" : "ohnoitsyou.net",
   "remoteServer" : "monitor.ohnoitsyou.net",
   "services" : [
-    {"name" : "nginx", "command" : "service nginx status"},
-    {"name" : "dovecot" , "command" : "service dovecot status"}
+    {"name" : "nginx", "command" : "service nginx status"}
   ],
   "monitorMemory" : "true",
-  "monitorTemp" : "false",
+  "monitorTemp" : "true",
+  "convertTemp" : "true",
   "cmds" : {
     "freeMemory" : "cat /proc/meminfo | grep 'MemFree' | awk '{print $2}'",
     "totalMemory": "cat /proc/meminfo | grep 'MemTotal'| awk '{print $2}'"
